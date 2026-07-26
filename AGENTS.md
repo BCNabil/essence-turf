@@ -16,7 +16,7 @@ GITHUB OWNERSHIP
 
 Le remote de ce dépôt a été migré ce jour :
 ```
-avant : https://github.com/BCNabil/essence-turf.git
+avant : ancien propriétaire `BCNabil` (compte personnel)
 après : https://github.com/BCNabilM/essence-turf.git
 ```
 
@@ -26,7 +26,7 @@ https://github.com/BCNabilM/<repository>
 git@github.com:BCNabilM/<repository>.git
 ```
 
-Les anciennes adresses `BCNabil/<repository>` redirigent encore, mais **une redirection n'est pas
+Les anciennes adresses de l'ancien propriétaire redirigent encore, mais **une redirection n'est pas
 une configuration conforme** : toute occurrence rencontrée doit être migrée.
 
 ### Ce qui NE doit PAS être réécrit
@@ -38,6 +38,6 @@ falsifierait un constat passé).
 ### Vérification
 ```bash
 git remote -v
-rg -n --hidden --glob '!.git/**' 'github\.com[:/]BCNabil/|api\.github\.com/repos/BCNabil/' .
+rg -n --hidden --glob '!.git/**' "github[.]com[:/]${LEGACY}/" .   # LEGACY=BCNabil
 ```
 Résultat conforme : remote sous `BCNabilM`, accès distant fonctionnel, aucune URL `BCNabil/` active.
