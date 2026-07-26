@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import datetime as dt
+import hashlib
 import json
 import os
 import pathlib
@@ -418,6 +419,12 @@ def cmd_check(_args: argparse.Namespace) -> int:
         errors.append("schema_version must be 1")
     if memory.get("core_version") != CORE_VERSION:
         errors.append(f"core_version must be {CORE_VERSION}")
+    if memory.get("core_repository") != "BCNabilM/sumapr-core":
+        errors.append("core_repository must be BCNabilM/sumapr-core")
+    expected_digest = str(memory.get("core_sha256", ""))
+    actual_digest = hashlib.sha256((root / "tools/sumapr.py").read_bytes()).hexdigest()
+    if expected_digest != actual_digest:
+        errors.append("tools/sumapr.py does not match the pinned core_sha256")
     project = memory.get("project")
     if not isinstance(project, dict) or not project.get("id") or not project.get("domains"):
         errors.append("project.id and project.domains are required")
