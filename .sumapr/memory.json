@@ -1,0 +1,137 @@
+{
+  "core_version": "0.1.0",
+  "incidents": [],
+  "learnings": [],
+  "project": {
+    "domains": [
+      "data",
+      "documentation",
+      "frontend",
+      "governance",
+      "infrastructure",
+      "integration",
+      "production",
+      "publishing",
+      "recovery",
+      "security",
+      "testing"
+    ],
+    "id": "BCNabil/essence-turf",
+    "name": "Essence Turf",
+    "protected_branches": [
+      "main",
+      "master"
+    ],
+    "session_ttl_minutes": 480,
+    "token_budget": 1200
+  },
+  "rules": [
+    {
+      "always": true,
+      "domains": [
+        "*"
+      ],
+      "guard": "tools/sumapr.py preflight and the pre-commit gate",
+      "id": "SUMAPR-CORE-001",
+      "mode": "constraint",
+      "statement": "Run a scoped SUMAPR preflight before every material action and respect its verdict.",
+      "when_keywords": []
+    },
+    {
+      "always": true,
+      "domains": [
+        "*"
+      ],
+      "guard": "tools/sumapr.py close",
+      "id": "SUMAPR-CORE-002",
+      "mode": "constraint",
+      "statement": "Close every action with validation evidence and capture failure or friction as a candidate incident.",
+      "when_keywords": []
+    },
+    {
+      "always": true,
+      "domains": [
+        "governance"
+      ],
+      "guard": "tools/sumapr.py learn requires cause, fix, evidence and guard",
+      "id": "SUMAPR-CORE-003",
+      "mode": "constraint",
+      "statement": "Never promote a candidate incident to validated learning without proven cause, fix, evidence and a deterministic guard.",
+      "when_keywords": []
+    },
+    {
+      "id": "ET-001",
+      "domains": [
+        "data",
+        "publishing",
+        "production"
+      ],
+      "statement": "Publish only canonical ESSENCE outputs that were frozen or validated at the correct stage.",
+      "guard": "Artifact provenance and publish-input validation",
+      "when_keywords": [
+        "prediction",
+        "result",
+        "publish",
+        "deploy"
+      ],
+      "mode": "constraint",
+      "always": false
+    },
+    {
+      "id": "ET-002",
+      "domains": [
+        "frontend",
+        "security",
+        "publishing"
+      ],
+      "statement": "Never expose proprietary algorithms, generators, training data, credentials or private internal evidence on the public site.",
+      "guard": "Secret scan and explicit public artifact allowlist",
+      "when_keywords": [
+        "algorithm",
+        "generator",
+        "training data",
+        "credential",
+        "secret"
+      ],
+      "mode": "constraint",
+      "always": false
+    },
+    {
+      "id": "ET-003",
+      "domains": [
+        "data",
+        "publishing"
+      ],
+      "statement": "Never add odds, betting popularity, payouts or bettor consensus.",
+      "guard": "Content gate and focused tests",
+      "when_keywords": [
+        "odds",
+        "cotes",
+        "payout",
+        "popularity"
+      ],
+      "mode": "constraint",
+      "always": false
+    },
+    {
+      "id": "ET-004",
+      "domains": [
+        "publishing",
+        "documentation"
+      ],
+      "statement": "Label predictions and results honestly; never invent performance, certainty or gain claims.",
+      "guard": "Deterministic content validation",
+      "when_keywords": [
+        "accuracy",
+        "gain",
+        "guarantee",
+        "performance"
+      ],
+      "mode": "constraint",
+      "always": false
+    }
+  ],
+  "schema_version": 1,
+  "core_repository": "BCNabilM/sumapr-core",
+  "core_sha256": "eb26db3f08a08573cd08cb1a9bcd1f906b7e47c3e509a45c3758fa23806dbc58"
+}
