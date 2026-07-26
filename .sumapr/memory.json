@@ -131,5 +131,7 @@
       "always": false
     }
   ],
-  "schema_version": 1
+  "schema_version": 1,
+  "core_repository": "BCNabilM/sumapr-core",
+  "core_sha256": "eb26db3f08a08573cd08cb1a9bcd1f906b7e47c3e509a45c3758fa23806dbc58"
 }
